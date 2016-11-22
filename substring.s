@@ -30,11 +30,6 @@ substring:
     MOV r5, r0  @ r5 = strlen(str2)
     POP {r0-r3}
 
-    CMP r4, #0
-    BEQ one  @ when strlen(str1) == 0
-    CMP r5, #0
-    BEQ one  @ when strlen(str2) == 0
-
     @ make r0 the possible substring, and r4 its length
     CMP r4, r5
     MOVGT r6, r0  @ swap r0 and r1
@@ -52,21 +47,20 @@ for:
     BGT zero
 
     MOV r7, #0
-    MOV r11, r6
-@ use inner loop to examine every substrings
+    MOV r8, r6
+@ use inner loop to examine every substring
 for2:
     CMP r7, r4
-    BEQ one  @ when r0 is found in r1
-    LDRB r8, [r0, r7]
-    LDRB r9, [r1, r6]
-    CMP r8, r9
+    BGE one  @ when r0 is found in r1
+    LDRB r9, [r0, r7]
+    LDRB r10, [r1, r8]
+    CMP r9, r10
     BNE endfor2
     ADD r7, r7, #1
-    ADD r6, r6, #1
+    ADD r8, r8, #1
     B for2
 
 endfor2:
-    MOV r6, r11
     ADD r6, r6, #1
     B for
 
