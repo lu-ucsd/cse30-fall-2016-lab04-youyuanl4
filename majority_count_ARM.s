@@ -41,7 +41,7 @@ majority_count_ARM:
     B end
 
 after1:
-@ left_majority_count = majority_count(arr, len/2, &left_majority)
+@ call majority_count_ARM(arr, len/2, &left_majority)
     SUB sp, sp, #16
     STR r0, [sp, #4]
     STR r1, [sp, #8]
@@ -56,7 +56,7 @@ after1:
     LDR r2, [sp, #12]
     ADD sp, sp, #16
     
-@ right_majority_count = majority_count(arr+len/2, len/2, &right_majority)
+@ call majority_count_ARM(arr+len/2, len-len/2, &right_majority)
     SUB sp, sp, #16
     STR r0, [sp, #4]
     STR r1, [sp, #8]
